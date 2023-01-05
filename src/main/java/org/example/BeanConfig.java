@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.services.SomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -9,7 +10,15 @@ import org.springframework.context.annotation.Configuration;
 public class BeanConfig {
 
 
-//    private Passport passport;
+//    @Autowired
+//    @Qualifier("fooService")
+    private SomeService someService;
+
+    public BeanConfig(@Qualifier("fooService") SomeService someService) {
+        this.someService = someService;
+    }
+
+    //    private Passport passport;
 //
 //    public BeanConfig(@Qualifier("passport") Passport passport) {
 //        this.passport = passport;
@@ -28,13 +37,11 @@ public class BeanConfig {
 
     @Bean
     public User user1() {
-        System.out.println("1");
         return new User(1, "vasya", passport1());
     }
 
     @Bean(name = "u2")
     public User user2(@Qualifier("passport2") Passport passport) {
-        System.out.println("2");
         return new User(2, "petya", passport);
     }
 
